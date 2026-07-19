@@ -1,0 +1,16 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Local configuration and logs
+*.log
+.DS_Store

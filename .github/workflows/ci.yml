@@ -34,5 +34,9 @@ jobs:
 
       - name: Verify analysis pipeline execution
         run: |
-          python src/preprocess.py data/sparc_ngc2403.csv
-          python src/model_fit.py data/sparc_ngc2403.csv
+          python3 src/preprocess.py data/sparc_ngc2403.csv
+          python3 src/model_fit.py data/sparc_ngc2403.csv
+
+      - name: Run automated test suite
+        run: |
+          PYTHONPATH=. pytest -v
