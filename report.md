@@ -46,9 +46,18 @@ The claim is supported by the quantitative fit shown in Figure 1 and the resid
 ---
 
 ## 4. Data Provenance & Integrity
-- **Source:** SPARC (Lelli, McGaugh & Schombert 2016). DOI resolves to the official dataset landing page.
+- **Source:** SPARC (Lelli, McGaugh & Schombert 2016). DOI resolves to the official dataset landing page: https://doi.org/10.3847/0004-6256/152/6/157
 - **Checksum:** `sha256` of `data/sparc_ngc2403.csv` → `e0f987d9c762e614a496861663f38ff2dfee77deec038a365ebbb90a8bd6c357` (verified locally and in CI).
 - **License:** CC‑BY‑4.0 (compatible with redistribution).
+
+### Dataset Schema & Provenance Details:
+The CSV data file `data/sparc_ngc2403.csv` contains the following columns extracted programmatically from the official SPARC database:
+1. `radius_kpc` (\(r\)): The galactocentric radius in kiloparsecs.
+2. `velocity_kms` (\(V_{obs}\)): Observed circular velocity in km/s, derived from HI and H\(\alpha\) line observations.
+3. `error_kms` (\(\delta V_{obs}\)): 1-sigma observational uncertainty in the observed velocity in km/s.
+4. `v_gas` (\(V_{gas}\)): The circular velocity contribution of the gaseous component (atomic hydrogen and helium, scaled for cosmological abundance) computed from HI surface density profiles.
+5. `v_disk` (\(V_{disk}\)): The circular velocity contribution of the stellar disk, computed by solving the Poisson equation for a thin disk using the Spitzer 3.6 \(\mu\text{m}\) surface photometry assuming a reference stellar mass-to-light ratio \(\Upsilon_*^d = 1.0 M_\odot/L_\odot\) (scaled to \(\Upsilon_*^d = 0.5\) during the fitting process).
+6. `v_bulge` (\(V_{bulge}\)): The circular velocity contribution of the stellar bulge, which is zero for NGC 2403 as it is a late-type dwarf/spiral galaxy with no bulge component.
 
 ---
 
@@ -109,9 +118,12 @@ The `data/checksums.txt` file in the repository records the exact reference hash
 ---
 
 ## 8. Limitations & Future Work
-- The analysis assumes a spherical NFW halo; triaxiality or baryonic feedback are not modeled.
-- Only NGC 2403 is presented; extending the pipeline to a larger SPARC subsample is straightforward but not included here.
-- Future work could integrate Bayesian hierarchical modelling to jointly constrain halo parameters across many galaxies.
+- **Spherical Symmetry Assumption:** The NFW dark matter halo velocity profile assumes a spherically symmetric mass distribution:
+  \[\rho(r) = \frac{\rho_s}{(r/r_s)(1+r/r_s)^2}\]
+  While spiral galaxies like NGC 2403 are disk-dominated, cosmological N-body simulations in \(\Lambda\)CDM show that dark matter halos are generally triaxial but are well-approximated as spherical for rotation curve fitting. The flat disk geometry is strictly modeled for the baryonic components (\(V_{disk}\) and \(V_{gas}\)) by solving the Poisson equation for thin disks, while the dark matter contribution is added in quadrature as a spherical halo.
+- **Baryonic Feedback & Cusp/Core Problem:** The high reduced \(\chi^2 = 10.01\) reflects systematic residuals in the inner regions (\(r < 3\text{ kpc}\)), which is a classic manifestation of the "cusp-core" problem. A cuspy NFW profile (\(\rho \propto r^{-1}\)) fits less well than a cored profile (such as Burkert or pseudo-isothermal) in the inner parts of dwarf and late-type galaxies.
+- **Pipeline Scaling:** Only NGC 2403 is presented; extending the pipeline to a larger SPARC subsample is straightforward but not included here.
+- **Future Work:** Future work could integrate Bayesian hierarchical modeling to jointly constrain halo parameters across many galaxies, allowing both stellar mass-to-light ratio \(\Upsilon_*\) and halo shape parameters to float.
 
 ---
 

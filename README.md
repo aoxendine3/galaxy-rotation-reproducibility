@@ -48,9 +48,33 @@ python3 src/model_fit.py data/sparc_ngc2403.csv
 ```
 
 ### 4. Run Verification Suite
-Execute the automated test suite to verify data integrity, fitting precision, and file presence:
+Execute the automated test suite (verifying checksums, parameters, figure generation, and DOI resolution):
 ```bash
-PYTHONPATH=. pytest -q
+PYTHONPATH=. pytest -v
 ```
 
-All steps are documented in [report.md](report.md).
+### 5. Advanced Usage: CLI Customization
+The fitting script `src/model_fit.py` supports customizing parameter overrides:
+```bash
+python3 src/model_fit.py data/sparc_ngc2403.csv \
+    --upsilon-disk 0.5 \
+    --upsilon-bulge 0.5 \
+    --p0 12.0 0.008 \
+    --bounds 0.1 1e-6 150.0 2.0 \
+    --output-fit figures/custom_fit.jpg \
+    --output-res figures/custom_res.jpg
+```
+Run `python3 src/model_fit.py --help` for the full list of options.
+
+### Tested Environments
+- **Operating Systems:** macOS 14/15, Ubuntu 20.04/22.04/latest (GitHub Actions).
+- **Python Versions:** 3.10, 3.11, 3.12, 3.13, 3.14.6.
+
+### License & Citations
+- **Code License:** MIT License.
+- **Data License:** CC-BY-4.0 (SPARC Database).
+- **Citation:** 
+  If you use this work, please cite the SPARC master database publication:
+  > Lelli, F., McGaugh, S. S., & Schombert, J. M. (2016). *SPARC: Mass Models for 175 Disk Galaxies with Spitzer Photometry and Accurate Rotation Curves.* The Astronomical Journal, 152(6), 157. DOI: [10.3847/0004-6256/152/6/157](https://doi.org/10.3847/0004-6256/152/6/157)
+
+All detailed scientific findings and assumptions are documented in [report.md](report.md).

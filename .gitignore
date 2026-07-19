@@ -14,3 +14,7 @@ __pycache__/
 # Local configuration and logs
 *.log
 .DS_Store
+
+# Generated figures
+figures/*.jpg
+figures/*.png
