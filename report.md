@@ -69,9 +69,13 @@ The claim is supported by the quantitative fit shown in Figure 1 and the resid
        --residuals figures/rotation_curve_residuals.jpg
    ```
 4. **Validate reproducibility**
-   - Verify JPEG checksums (see `checksums.txt`).
-   - CI runs on GitHub Actions; the workflow completes without errors, confirming that all commands execute on a fresh runner.
-   - No unit‑test suite is defined for this minimal example; the CI configuration includes a lint step that passes.
+   - Verify that the two JPEG files match the expected checksums (see `checksums.txt`).
+   - Run the automated unit test suite:
+     ```bash
+     PYTHONPATH=. pytest -q
+     ```
+   - All tests pass (`3 passed`).
+   - CI workflow on GitHub Actions automatically runs tests and checks linting on push.
 
 ---
 

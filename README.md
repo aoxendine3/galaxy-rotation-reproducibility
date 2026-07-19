@@ -27,6 +27,6 @@ This repository contains all code, data, and documentation needed to reproduce t
 2. Run `scripts/download_data.sh` to fetch the SPARC CSV files.
 3. Execute `python -m src.model_fit` to perform the analysis.
 4. Generate the figures with the scripts in `src/figures/`.
-5. Run `pytest -q tests/` to verify the pipeline.
+5. Run `PYTHONPATH=. pytest -q` to verify the pipeline.
 
 All steps are documented in `report.md` with exact commands and expected outputs.
