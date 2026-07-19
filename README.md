@@ -21,6 +21,7 @@ galaxy_rotation_reproducibility/
 │   └── test_pipeline.py        # Automated pytest validation suite
 ├── .github/workflows/
 │   └── ci.yml                  # GitHub Actions continuous integration pipeline
+├── pyproject.toml                  # Project packaging and metadata
 ├── requirements.txt            # Python dependencies (NumPy, SciPy, Pandas, Matplotlib)
 ├── README.md                   # This overview file
 └── report.md                   # Detailed scientific reproducibility report

@@ -15,7 +15,7 @@ Create a reviewer‑ready, end‑to‑end reproducibility package for the galaxy
 
 ## Proposed Changes
 ---
-### Repository Layout (`/Users/ajoxendine68/Desktop/Xoras_Workspace/galaxy_rotation_reproducibility`)
+### Proposed Repository Layout
 - **[MODIFY] README.md** – Add detailed repo tree, usage instructions, and citation.
 - **[NEW] report.md** – Full reproducibility report with sections:
   - Abstract

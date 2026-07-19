@@ -20,6 +20,7 @@ galaxy_rotation_reproducibility/
 ├── src/
 │   ├── preprocess.py       # Convert CSV to model‑ready format
 │   └── model_fit.py          # Perform NFW fitting and produce plots
+├── pyproject.toml              # Project metadata and version constraints
 ├── figures/
 │   ├── rotation_curve_fit.jpg      # Data + NFW model fit
 │   └── rotation_curve_residuals.jpg # Residuals of the fit
