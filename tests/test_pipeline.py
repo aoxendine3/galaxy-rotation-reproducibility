@@ -97,3 +97,11 @@ def test_doi_resolution():
                 assert status in [200, 301, 302], f"DOI returned unexpected status code on GET: {status}"
         except Exception as err:
             pytest.fail(f"DOI failed to resolve: {err}")
+
+def test_figure_checksums():
+    from scripts.verify_checksums import verify_all
+    try:
+        verify_all()
+    except SystemExit as e:
+        if e.code != 0:
+            pytest.fail(f"Checksum verification script failed with code {e.code}")
