@@ -162,7 +162,7 @@ def generate_plots(df, popt, v_fit, residuals, reduced_chi2, output_fit, output_
     
     print(f"Figures written successfully:\n  - Fit: {output_fit}\n  - Residuals: {output_res}")
 
-def main():
+def build_parser():
     parser = argparse.ArgumentParser(description="Fit an NFW dark matter halo to galaxy rotation curves.")
     parser.add_argument("csv_path", nargs="?", default="data/sparc_ngc2403.csv", help="Path to raw SPARC data CSV.")
     parser.add_argument("--upsilon-disk", type=float, default=0.5, help="Stellar mass-to-light ratio for disk.")
@@ -172,7 +172,10 @@ def main():
                         help="Fitting bounds: min_rs min_rho_s max_rs max_rho_s.")
     parser.add_argument("--output-fit", default="figures/rotation_curve_fit.jpg", help="Path to write the fit plot.")
     parser.add_argument("--output-res", default="figures/rotation_curve_residuals.jpg", help="Path to write the residuals plot.")
-    
+    return parser
+
+def main():
+    parser = build_parser()
     args = parser.parse_args()
     
     print(f"Loading data file: {args.csv_path}")

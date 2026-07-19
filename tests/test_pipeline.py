@@ -59,6 +59,10 @@ def test_fit_rotation_curve_precision():
     assert np.isclose(popt[1], 0.01004214197502815, rtol=1e-3), f"rho_s drifted: {popt[1]}"
     assert np.isclose(reduced_chi2, 10.012547439178881, rtol=1e-3), f"reduced chi2 drifted: {reduced_chi2}"
     
+    # Assert standard error uncertainties of parameters (derived from covariance matrix)
+    assert np.isclose(perr[0], 0.17981125693598374, rtol=1e-3), f"rs uncertainty drifted: {perr[0]}"
+    assert np.isclose(perr[1], 0.0002636465942468764, rtol=1e-3), f"rho_s uncertainty drifted: {perr[1]}"
+    
     assert len(v_fit) == 73
     assert len(residuals) == 73
 
@@ -78,6 +82,14 @@ def test_figure_generation_and_existence(tmp_path):
     assert os.path.getsize(fit_temp_path) > 10000, "Temp fit plot is empty or too small!"
     assert os.path.getsize(res_temp_path) > 10000, "Temp residuals plot is empty or too small!"
 
+def is_offline():
+    try:
+        urllib.request.urlopen("https://www.google.com", timeout=3)
+        return False
+    except Exception:
+        return True
+
+@pytest.mark.skipif(is_offline(), reason="No internet connection available")
 def test_doi_resolution():
     doi_url = "https://doi.org/10.3847/0004-6256/152/6/157"
     req = urllib.request.Request(
@@ -106,3 +118,27 @@ def test_figure_checksums():
     except SystemExit as e:
         if e.code != 0:
             pytest.fail(f"Checksum verification script failed with code {e.code}")
+
+def test_cli_parsing():
+    from src.model_fit import build_parser
+    parser = build_parser()
+    
+    # Test default values
+    args = parser.parse_args(["data/sparc_ngc2403.csv"])
+    assert args.upsilon_disk == 0.5
+    assert args.upsilon_bulge == 0.5
+    assert args.p0 == [10.0, 0.01]
+    assert args.bounds == [0.1, 1e-5, 100.0, 1.0]
+    
+    # Test overrides
+    args_custom = parser.parse_args([
+        "data/sparc_ngc2403.csv",
+        "--upsilon-disk", "0.4",
+        "--upsilon-bulge", "0.6",
+        "--p0", "12.0", "0.008",
+        "--bounds", "0.2", "1e-4", "150.0", "2.0"
+    ])
+    assert args_custom.upsilon_disk == 0.4
+    assert args_custom.upsilon_bulge == 0.6
+    assert args_custom.p0 == [12.0, 0.008]
+    assert args_custom.bounds == [0.2, 1e-4, 150.0, 2.0]
