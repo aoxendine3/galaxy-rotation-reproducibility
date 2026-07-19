@@ -19,7 +19,7 @@ galaxy_rotation_reproducibility/
 │   └── sparc_ngc2403.csv   # Raw rotation‑curve measurements (SPARC)
 ├── src/
 │   ├── preprocess.py       # Convert CSV to model‑ready format
-│   └── fit_nfw.py          # Perform NFW fitting and produce plots
+│   └── model_fit.py          # Perform NFW fitting and produce plots
 ├── figures/
 │   ├── rotation_curve_fit.jpg      # Data + NFW model fit
 │   └── rotation_curve_residuals.jpg # Residuals of the fit
@@ -38,7 +38,7 @@ The claim is supported by the quantitative fit shown in Figure 1 and the resid
 ## 3. Evidence, Inference, and Hypothesis
 | Component | Description |
 |-----------|-------------|
-| **Evidence** | CSV data from the SPARC catalog (DOI: https://doi.org/10.26179/5c2f1db3c07e0) – raw velocities and uncertainties. |
+| **Evidence** | CSV data from the SPARC catalog (DOI: https://doi.org/10.3847/0004-6256/152/6/157) – raw velocities and uncertainties. |
 | **Inference** | Non‑linear least‑squares fitting of the NFW model to the velocity profile, producing best‑fit parameters and covariance. |
 | **Hypothesis** | The NFW profile fits the rotation curve with a reduced \(\chi^2 = 10.01\). |
 
@@ -94,13 +94,16 @@ The claim is supported by the quantitative fit shown in Figure 1 and the resid
 ---
 
 ## 7. Validation & Checksums
-```
+```bash
 # SHA‑256 checksums
 sha256sum data/sparc_ngc2403.csv
 sha256sum figures/rotation_curve_fit.jpg
 sha256sum figures/rotation_curve_residuals.jpg
 ```
-The `checksums.txt` file in the repository records the exact hashes used for verification.
+The `data/checksums.txt` file in the repository records the exact reference hashes.
+
+> [!NOTE]
+> The raw data file `sparc_ngc2403.csv` has a byte-identical checksum across all clones. However, because image rendering backends (like freetype, png, or jpeg compressors) can introduce tiny byte-level variances across different operating systems or Matplotlib versions, the exact binary hashes of the figure JPEGs may drift slightly while remaining visually and scientifically identical. CI verification enforces exact data matching and numerical fit parameter precision.
 
 ---
 

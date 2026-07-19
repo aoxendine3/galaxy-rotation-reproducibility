@@ -52,4 +52,4 @@ Execute the automated test suite to verify data integrity, fitting precision, an
 PYTHONPATH=. pytest -q
 ```
 
-All analysis steps and detailed results are documented in [report.md](file:///Users/ajoxendine68/Desktop/Xoras_Workspace/galaxy_rotation_reproducibility/report.md).
+All steps are documented in [report.md](report.md).
