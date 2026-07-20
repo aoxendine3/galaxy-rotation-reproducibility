@@ -6,6 +6,7 @@ This repository contains the complete, reviewer-ready code, data, and documentat
 
 ```
 galaxy_rotation_reproducibility/
+# Note: Figures under figures/ are generated artifacts; they are not versioned and may differ across platforms.
 ├── data/
 │   ├── sparc_ngc2403.csv       # Raw rotation-curve measurements (SPARC)
 │   └── checksums.txt           # Verified SHA-256 hashes of all assets

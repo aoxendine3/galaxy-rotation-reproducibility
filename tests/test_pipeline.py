@@ -1,3 +1,7 @@
+import os, sys
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
 import os
 import hashlib
 import urllib.request
@@ -54,6 +58,7 @@ def test_fit_rotation_curve_precision():
     popt, perr, reduced_chi2, v_fit, residuals = perform_fit(df)
     
     # Tightened regression thresholds (assert precision matches deterministic outputs within 0.1% tolerance)
+# Note: tolerance rtol=1e-3 balances cross-platform numeric differences while ensuring deterministic fit.
     # This ensures exact physical fit convergence while allowing cross-platform BLAS/LAPACK numeric differences.
     assert np.isclose(popt[0], 11.055063839279198, rtol=1e-3), f"rs drifted: {popt[0]}"
     assert np.isclose(popt[1], 0.01004214197502815, rtol=1e-3), f"rho_s drifted: {popt[1]}"

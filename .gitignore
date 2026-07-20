@@ -15,6 +15,12 @@ __pycache__/
 *.log
 .DS_Store
 
-# Generated figures
+# Generated figures (are produced fresh from data, not tracked)
 figures/*.jpg
 figures/*.png
+
+# Data files (can be regenerated via scripts/download_data.py)
+# NOTE: data/sparc_ngc2403.csv is intentionally tracked in the repository.
+# Note: data/sparc_ngc2403.csv is committed as reference; running download_data.py will regenerate.
+# To avoid confusion, consider running download_data.py only during development.
+# For reproducibility, use the committed CSV file.

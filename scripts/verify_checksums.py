@@ -11,7 +11,8 @@ def compute_sha256(filepath):
 
 def verify_all():
     # 1. Parse and verify data/checksums.txt for all listed files
-    checksums_file = "data/checksums.txt"
+    import os
+    checksums_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "checksums.txt"))
     if not os.path.exists(checksums_file):
         print(f"Error: Checksums reference file {checksums_file} not found.")
         sys.exit(1)
